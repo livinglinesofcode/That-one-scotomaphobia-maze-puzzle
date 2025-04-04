@@ -19,8 +19,8 @@ local orientationTable = {
         right = "right"
     },
     down = {
-        left = "left",
-        right = "right"
+        left = "right",
+        right = "left"
     },
     left = {
         left = "down",
@@ -218,11 +218,12 @@ local function setupMap()
     local rows = #lines
     -- printf("%d collumns and %d rows\n\n", collumns, rows)
 
-    local mapArray = Array2D.new(collumns, rows, 0)
-    for collumn, line in ipairs(lines) do
-        local row = 0
+    local mapArray = Array2D.new(collumns, rows, 1)
+    for row, line in ipairs(lines) do
+        local collumn = 0
+
         for character in line:gmatch("[^%s]") do
-            row = row + 1
+            collumn = collumn + 1
             mapArray:Set(row, collumn, character == 'X' and 1 or 0)
         end
     end
@@ -235,9 +236,9 @@ local function setupMap()
             local x = (mode == "collumn" and i) or (getX or 1)
             local y = (mode == "row" and i) or (getY or 1)
 
-            if mapArray:Get(x, y) == 0 then
-                winCollumn = x
-                winRow = y
+            if mapArray:Get(y, x) == 0 then
+                winCollumn = y
+                winRow = x
             end
         end
     end
@@ -270,7 +271,7 @@ local function setupCharacter(map2dArray)
         local col = math.random(map2dArray.Width)
         local row = math.random(map2dArray.Height)
 
-        validPosition = map2dArray:Get(col, row) == 0 and col ~= winCollumn and row ~= winRow
+        validPosition = map2dArray:Get(row, col) == 0 and col ~= winCollumn and row ~= winRow
 
         if validPosition then
             characterCollumn = col
