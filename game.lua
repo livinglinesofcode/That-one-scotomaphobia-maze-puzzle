@@ -394,7 +394,7 @@ local function main(args)
     setupCharacter(map2dArray)
 
     local escaped = false
-    local firstMessage
+    local firstMessage = true
 
     while not escaped do
         os.execute("cls")
