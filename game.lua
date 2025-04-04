@@ -336,7 +336,7 @@ local function informPosition(map2dArray)
     end
 
     if wallsAround == 0 then
-        printf("There are no walls around me")
+        print("There are no walls around me.")
     elseif wallsAround == 1 then
         if not wallInFront then
             print("There is 1 wall around me.")
